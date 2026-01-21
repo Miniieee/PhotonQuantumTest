@@ -13,6 +13,7 @@ namespace Quantum {
 
     public void PollInput(CallbackPollInput callback) {
       Quantum.Input i = new Quantum.Input();
+      i.Direction = new FPVector2(UnityEngine.Input.GetAxis("Horizontal").ToFP(), UnityEngine.Input.GetAxis("Vertical").ToFP());
       callback.SetInput(i, DeterministicInputFlags.Repeatable);
     }
   }

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5377366181458947503}
   - component: {fileID: 571331794620723709}
   - component: {fileID: 3484159721159526719}
+  - component: {fileID: 1770293509284325161}
   m_Layer: 0
   m_Name: CharacterControllerEntity
   m_TagString: Untagged
@@ -380,3 +381,15 @@ MonoBehaviour:
   OnEntityDestroyed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1770293509284325161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125611771939851832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cad846f55e270d43846d2e7a4553c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

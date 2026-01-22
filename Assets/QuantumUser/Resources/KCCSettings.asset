@@ -29,7 +29,7 @@ MonoBehaviour:
     RawValue: 1966080
   Debug: 0
   Brake:
-    RawValue: 65536
+    RawValue: 6553600
   LayerMask:
     BitMask: 768
   MoveAlongsideRotation: 0

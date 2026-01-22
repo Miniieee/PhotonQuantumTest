@@ -7,9 +7,67 @@ using UnityEngine;
 public unsafe class PlayerView : QuantumEntityViewComponent
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject overheadUi;
+
+    private bool _isLocalPlayer;
+    private Renderer[] _renderers;
 
     private static readonly int MoveXHash = Animator.StringToHash("moveX");
     private static readonly int MoveZHash = Animator.StringToHash("moveZ");
+
+    void Awake()
+    {
+        _renderers = GetComponentsInChildren<Renderer>(includeInactive: true);
+    }
+
+    public override void OnActivate(Frame frame)
+    {
+        _isLocalPlayer = _game.PlayerIsLocal(frame.Get<PlayerLink>(EntityRef).Player);
+        var layer = UnityEngine.LayerMask.NameToLayer(_isLocalPlayer ? "Player_Local" : "Player_Remote");
+
+        foreach (var renderer in _renderers)
+        {
+            renderer.gameObject.layer = layer;
+            renderer.enabled = true;
+        }
+
+        overheadUi.SetActive(true);
+        QuantumEvent.Subscribe<EventOnPlayerEnteredGrass>(this, OnPlayerEnteredGrass);
+        QuantumEvent.Subscribe<EventOnPlayerExitedGrass>(this, OnPlayerExitedGrass);
+    }
+
+    public override void OnDeactivate()
+    {
+        QuantumEvent.UnsubscribeListener<EventOnPlayerEnteredGrass>(this);
+        QuantumEvent.UnsubscribeListener<EventOnPlayerExitedGrass>(this);
+    }
+
+    private void OnPlayerEnteredGrass(EventOnPlayerEnteredGrass callback)
+    {
+        SetRendererVisibility(callback.Player, false);
+    }
+
+    private void OnPlayerExitedGrass(EventOnPlayerExitedGrass callback)
+    {
+
+
+        SetRendererVisibility(callback.Player, true);
+    }
+
+    private void SetRendererVisibility(PlayerRef player, bool visible)
+    {
+        if (player != PredictedFrame.Get<PlayerLink>(EntityRef).Player)
+            return;
+        if (_isLocalPlayer)
+            return;
+
+        foreach (var renderer in _renderers)
+        {
+            renderer.enabled = visible;
+        }
+
+        overheadUi.SetActive(visible);
+    }
 
     public override void OnUpdateView()
     {

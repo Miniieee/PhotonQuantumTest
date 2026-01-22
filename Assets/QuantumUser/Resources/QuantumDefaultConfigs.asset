@@ -137,6 +137,21 @@ MonoBehaviour:
     SystemName: 
     StartDisabled: 0
     Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.SpawnSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.WeaponSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
+  - SystemType:
+      AssemblyQualifiedName: Quantum.BulletSystem, Quantum.Simulation
+    SystemName: 
+    StartDisabled: 0
+    Children: []
 --- !u!114 &3324273236913545031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,10 +246,10 @@ MonoBehaviour:
     - 
     - Water
     - UI
-    - 
-    - 
-    - 
-    - 
+    - Player_Local
+    - Player_Remote
+    - Ground
+    - Grass
     - 
     - 
     - 

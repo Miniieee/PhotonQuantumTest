@@ -1587,7 +1587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &348528726735122308
 Transform:
   m_ObjectHideFlags: 0
@@ -1928,7 +1928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3414193695656876779
 Transform:
   m_ObjectHideFlags: 0
@@ -3138,6 +3138,11 @@ PrefabInstance:
         type: 3}
       propertyPath: Prototype.Settings.Id.Value
       value: 316719393997610777
+      objectReference: {fileID: 0}
+    - target: {fileID: 46403939586677534, guid: 087898557506e714b83fb874784c9772,
+        type: 3}
+      propertyPath: Prototype.WeaponData.Id.Value
+      value: 506059057265686256
       objectReference: {fileID: 0}
     - target: {fileID: 1079595735002374523, guid: 087898557506e714b83fb874784c9772,
         type: 3}

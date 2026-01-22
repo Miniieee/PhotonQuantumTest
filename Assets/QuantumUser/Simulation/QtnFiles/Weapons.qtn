@@ -1,0 +1,17 @@
+component Weapon
+{
+    FP CooldownTime;
+    AssetRef<WeaponData> WeaponData;
+}
+
+component Bullet
+{
+    EntityRef Owner;
+    FP Damage;
+    FP Time;
+    FP Speed;
+    FP HeightOffset;
+    FPVector2 Direction;
+}
+
+signal CreateBullet(EntityRef owner, WeaponData weaponData);

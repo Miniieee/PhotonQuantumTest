@@ -49,6 +49,44 @@ namespace Quantum.Prototypes.Unity {
   using RuntimeInitializeOnLoadMethodAttribute = UnityEngine.RuntimeInitializeOnLoadMethodAttribute;
   #endif //;
   
+  [System.SerializableAttribute()]
+  public unsafe partial class BulletPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.BulletPrototype> {
+    public Quantum.QuantumEntityPrototype Owner;
+    public FP Damage;
+    public FP Time;
+    public FP Speed;
+    public FP HeightOffset;
+    public FPVector2 Direction;
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.BulletPrototype prototype);
+    public override Quantum.Prototypes.BulletPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.BulletPrototype();
+      converter.Convert(this.Owner, out result.Owner);
+      converter.Convert(this.Damage, out result.Damage);
+      converter.Convert(this.Time, out result.Time);
+      converter.Convert(this.Speed, out result.Speed);
+      converter.Convert(this.HeightOffset, out result.HeightOffset);
+      converter.Convert(this.Direction, out result.Direction);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
+  [System.SerializableAttribute()]
+  public unsafe partial class SpawnPointManagerPrototype : Quantum.QuantumUnityPrototypeAdapter<Quantum.Prototypes.SpawnPointManagerPrototype> {
+    [AllocateOnComponentAdded()]
+    [DynamicCollectionAttribute()]
+    public Quantum.QuantumEntityPrototype[] AvailableSpawnPoints = {};
+    [AllocateOnComponentAdded()]
+    [DynamicCollectionAttribute()]
+    public Quantum.QuantumEntityPrototype[] UsedSpawnPoints = {};
+    partial void ConvertUser(Quantum.QuantumEntityPrototypeConverter converter, ref Quantum.Prototypes.SpawnPointManagerPrototype prototype);
+    public override Quantum.Prototypes.SpawnPointManagerPrototype Convert(Quantum.QuantumEntityPrototypeConverter converter) {
+      var result = new Quantum.Prototypes.SpawnPointManagerPrototype();
+      converter.Convert(this.AvailableSpawnPoints, out result.AvailableSpawnPoints);
+      converter.Convert(this.UsedSpawnPoints, out result.UsedSpawnPoints);
+      ConvertUser(converter, ref result);
+      return result;
+    }
+  }
 }
 #pragma warning restore 0109
 #pragma warning restore 1591

@@ -2,27 +2,27 @@ namespace Quantum {
   using Photon.Deterministic;
     using UnityEngine.Scripting;
 
-    [Preserve]
-  public unsafe class CharacterMoveableSystem : SystemMainThreadFilter<CharacterMoveableSystem.Filter>, ISignalOnPlayerAdded {
-    
-
+  [Preserve]
+  public unsafe class CharacterMoveableSystem : SystemMainThreadFilter<CharacterMoveableSystem.Filter>, ISignalOnPlayerAdded 
+  {
     public override void Update(Frame f, ref Filter filter)
     {
       var input = f.GetPlayerInput(filter.PlayerLink->Player);
-      var direction = input->Direction.XOY;
+      var direction = input->Direction;
 
       if (direction.Magnitude > 1)
       {
         direction = direction.Normalized;
       }
 
-      filter.CharacterController3D->Move(f, filter.Entity, direction);
+      var kccSettings = f.FindAsset(filter.KCC->Settings);
+      kccSettings.Move(f, filter.Entity, direction);
     }
 
     public struct Filter 
     {
       public EntityRef Entity;
-      public CharacterController3D* CharacterController3D;
+      public KCC* KCC;
       public PlayerLink* PlayerLink;
     }
 
@@ -36,6 +36,12 @@ namespace Quantum {
       };
 
       f.Add(playerEntity, playerLink);
+
+      var kcc = f.Unsafe.GetPointer<KCC>(playerEntity);
+      var kccSettings = f.FindAsset(kcc->Settings);
+
+      kcc->Acceleration = kccSettings.Acceleration;
+      kcc->MaxSpeed = kccSettings.BaseSpeed;
     }
   }
 }

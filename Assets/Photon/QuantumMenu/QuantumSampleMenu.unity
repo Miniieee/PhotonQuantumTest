@@ -478,6 +478,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7243461719588803421, guid: 7d78f8a9ae2bcc1408312ef78f87bdf0,
         type: 3}
+      propertyPath: ConnectArgs.SessionConfig
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243461719588803421, guid: 7d78f8a9ae2bcc1408312ef78f87bdf0,
+        type: 3}
       propertyPath: DefaultConnectionArgs.SessionConfig
       value: 
       objectReference: {fileID: 0}
@@ -504,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 7243461719588803421, guid: 7d78f8a9ae2bcc1408312ef78f87bdf0,
         type: 3}
       propertyPath: ConnectArgs.RuntimePlayers.Array.data[0].PlayerAvatar.Id.Value
-      value: 1296727335917009232
+      value: 1327634856197657666
       objectReference: {fileID: 0}
     - target: {fileID: 7545343568668095747, guid: 7d78f8a9ae2bcc1408312ef78f87bdf0,
         type: 3}

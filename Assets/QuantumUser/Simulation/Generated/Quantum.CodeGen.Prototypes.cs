@@ -60,6 +60,27 @@ namespace Quantum.Prototypes {
     }
   }
   [System.SerializableAttribute()]
+  [Quantum.Prototypes.Prototype(typeof(Quantum.KCC))]
+  public unsafe partial class KCCPrototype : ComponentPrototype<Quantum.KCC> {
+    public AssetRef<KCCSettings> Settings;
+    public FP MaxSpeed;
+    public FP Acceleration;
+    public FPVector2 Velocity;
+    partial void MaterializeUser(Frame frame, ref Quantum.KCC result, in PrototypeMaterializationContext context);
+    public override Boolean AddToEntity(FrameBase f, EntityRef entity, in PrototypeMaterializationContext context) {
+        Quantum.KCC component = default;
+        Materialize((Frame)f, ref component, in context);
+        return f.Set(entity, component) == SetResult.ComponentAdded;
+    }
+    public void Materialize(Frame frame, ref Quantum.KCC result, in PrototypeMaterializationContext context = default) {
+        result.Settings = this.Settings;
+        result.MaxSpeed = this.MaxSpeed;
+        result.Acceleration = this.Acceleration;
+        result.Velocity = this.Velocity;
+        MaterializeUser(frame, ref result, in context);
+    }
+  }
+  [System.SerializableAttribute()]
   [Quantum.Prototypes.Prototype(typeof(Quantum.PlayerLink))]
   public unsafe partial class PlayerLinkPrototype : ComponentPrototype<Quantum.PlayerLink> {
     public PlayerRef Player;

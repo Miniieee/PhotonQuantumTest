@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 46403939586677534}
   - component: {fileID: 6576478569463270877}
   - component: {fileID: 7222942314289619556}
+  - component: {fileID: 5943675779617953738}
   m_Layer: 6
   m_Name: Character_Base
   m_TagString: Untagged
@@ -483,8 +484,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prototype:
-    Type:
-      Value: 1
     Ammo: 0
     CooldownTime:
       RawValue: 0
@@ -522,6 +521,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarImage: {fileID: 1497564469917106863}
+--- !u!114 &5943675779617953738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326267824891306075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bea8754d12b284398f8cac6cac6c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1739315570316238824
 GameObject:
   m_ObjectHideFlags: 0

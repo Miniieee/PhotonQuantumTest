@@ -12,8 +12,8 @@ namespace Quantum {
             var weapon = f.Unsafe.GetPointer<Weapon>(pickerEntity);
             weapon->WeaponData = weaponBase;
             weapon->CooldownTime = 0;
-            weapon->Type = weaponBase.WeaponType;
             weaponBase.OnInit(f, pickerEntity, weapon);
+            f.Events.OnWeaponChanged(pickerEntity, weaponBase.WeaponType);
 
             f.Destroy(pickupItemEntity);
         }

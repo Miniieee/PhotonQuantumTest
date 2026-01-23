@@ -3,25 +3,17 @@ namespace Quantum {
     using UnityEngine.Scripting;
 
   [Preserve]
-  public unsafe class WeaponSystem : SystemMainThreadFilter<WeaponSystem.Filter> {
+  public unsafe class WeaponSystem : SystemMainThreadFilter<WeaponSystem.Filter>, ISignalOnComponentAdded<Weapon>
+  {
+    public unsafe void OnAdded(Frame f, EntityRef entity, Weapon* component)
+    {
+      var weaponData = f.FindAsset<WeaponBase>(component->WeaponData);
+      weaponData.OnInit(f, entity, component);
+    }
     public override void Update(Frame f, ref Filter filter)
     {
-        if(filter.Weapon->CooldownTime >= FP._0)
-        {
-            filter.Weapon->CooldownTime -= f.DeltaTime;
-            return;
-        }
-
-        var input = f.GetPlayerInput(filter.Player->Player);
-
-        if(input->Fire.WasPressed)
-        {
-            var weaponData = f.FindAsset(filter.Weapon->WeaponData);
-            filter.Weapon->CooldownTime = weaponData.Cooldown;
-
-            f.Signals.CreateBullet(filter.Entity, weaponData);
-        }
-            
+      var weaponData = f.FindAsset<WeaponBase>(filter.Weapon->WeaponData);
+      weaponData.OnUpdate(f, filter);
     }
 
     public struct Filter {

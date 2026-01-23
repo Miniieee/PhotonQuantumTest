@@ -16,7 +16,7 @@ namespace Quantum {
                 return;
             }
 
-            f.Events.OnDamageableHit(victim, MaxHealth, damageable->Health);
+            f.Events.OnDamageableHealthUpdate(victim, MaxHealth, damageable->Health);
         }
     }
 }

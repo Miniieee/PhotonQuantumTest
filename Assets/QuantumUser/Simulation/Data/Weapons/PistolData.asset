@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e15646123895e194dbf61a0650c576be, type: 3}
+  m_Name: PistolData
+  m_EditorClassIdentifier: 
+  Identifier:
+    Path: QuantumUser/Simulation/Data/Weapons/PistolData
+    Guid:
+      Value: 269960170251118028
+  WeaponType: 1
+  Cooldown:
+    RawValue: 131072
+  Offset:
+    X:
+      RawValue: 16253
+    Y:
+      RawValue: 93258
+    Z:
+      RawValue: 104399
+  BulletData: {fileID: 11400000, guid: cf6f6ab663155e6498440b2e975b1748, type: 2}
+  MaxAmmo: 1

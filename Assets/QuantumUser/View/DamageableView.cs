@@ -11,11 +11,11 @@ namespace Quantum {
 
       public override void OnActivate(Frame frame)
       {
-          QuantumEvent.Subscribe<EventOnDamageableHit>(this, OnDamageableHit);
-      }
+            QuantumEvent.Subscribe<EventOnDamageableHealthUpdate>(this, OnDamageableHit);
+        }
 
-      private void OnDamageableHit(EventOnDamageableHit callback)
-      {
+        private void OnDamageableHit(EventOnDamageableHealthUpdate callback)
+        {
           if (callback.entityRef != EntityRef)
               return;
 
@@ -38,7 +38,7 @@ namespace Quantum {
 
         public override void OnDeactivate()
       {
-          QuantumEvent.UnsubscribeListener<EventOnDamageableHit>(this);
-      }
+            QuantumEvent.UnsubscribeListener<EventOnDamageableHealthUpdate>(this);
+        }
     }
 }

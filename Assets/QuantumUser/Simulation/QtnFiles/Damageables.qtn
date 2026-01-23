@@ -5,8 +5,9 @@ component Damageable
 }
 
 signal DamageableHit(EntityRef victim, EntityRef hitter, FP damage, Damageable* damageable);
+signal DamageableHealthRestored(EntityRef entity, Damageable* damageable);
 
-event OnDamageableHit
+event OnDamageableHealthUpdate
 {
     EntityRef entityRef;
     FP MaxHealth;

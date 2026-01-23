@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 6302125259668532948}
   - component: {fileID: 46403939586677534}
   - component: {fileID: 6576478569463270877}
+  - component: {fileID: 7222942314289619556}
   m_Layer: 6
   m_Name: Character_Base
   m_TagString: Untagged
@@ -468,6 +469,7 @@ MonoBehaviour:
   animator: {fileID: 534198499139429989}
   overheadUi: {fileID: 1892350581194458970}
   playerNameText: {fileID: 1447206199820168171}
+  animationSpeed: 1.5
 --- !u!114 &46403939586677534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +506,19 @@ MonoBehaviour:
     DamageableData:
       Id:
         Value: 379383781366058026
+--- !u!114 &7222942314289619556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326267824891306075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9fa3dc14762134a9e92a6005a979ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarImage: {fileID: 1497564469917106863}
 --- !u!1 &1739315570316238824
 GameObject:
   m_ObjectHideFlags: 0

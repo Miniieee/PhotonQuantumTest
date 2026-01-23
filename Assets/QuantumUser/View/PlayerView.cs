@@ -10,6 +10,7 @@ public unsafe class PlayerView : QuantumEntityViewComponent
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject overheadUi;
     [SerializeField] private TMP_Text playerNameText;
+    [SerializeField, Range(1f,2f)] private float animationSpeed = 1.5f;
 
     private bool _isLocalPlayer;
     private Renderer[] _renderers;
@@ -85,10 +86,11 @@ public unsafe class PlayerView : QuantumEntityViewComponent
             return;
         
         var input = PredictedFrame.GetPlayerInput(PredictedFrame.Get<PlayerLink>(EntityRef).Player);
-        var kcc = PredictedFrame.Get<KCC>(EntityRef);
-        var velocity = kcc.Velocity;
 
-        animator.SetFloat(MoveXHash, velocity.X.AsFloat);
-        animator.SetFloat(MoveZHash, velocity.Y.AsFloat);
+        var currentRotation = PredictedFrame.Get<Transform2D>(EntityRef).Rotation;
+        var rotatedDirection = input->Direction.Rotate(-currentRotation).ToUnityVector2() * animationSpeed;
+
+        animator.SetFloat(MoveXHash, rotatedDirection.x);
+        animator.SetFloat(MoveZHash, rotatedDirection.y);
     }
 }

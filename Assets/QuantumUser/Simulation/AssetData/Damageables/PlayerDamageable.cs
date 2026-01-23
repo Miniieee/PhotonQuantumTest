@@ -9,10 +9,14 @@ namespace Quantum {
         public unsafe override void DamageableHit(Frame f, EntityRef victim, EntityRef hitter, FP damage, Damageable* damageable)
         {
             damageable->Health -= damage;
-            if(damageable->Health <= FP._0)
+
+            if (damageable->Health <= FP._0)
             {
                 f.Destroy(victim);
+                return;
             }
+
+            f.Events.OnDamageableHit(victim, MaxHealth, damageable->Health);
         }
     }
 }

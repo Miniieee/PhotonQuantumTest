@@ -4,32 +4,61 @@ namespace Quantum
   using UnityEngine.Scripting;
 
   [Preserve]
-  public unsafe class PickupSystem : SystemMainThreadFilter<PickupSystem.Filter>, ISignalOnTriggerEnter2D, ISignalOnTriggerExit2D
+  public unsafe class PickupSystem : SystemMainThreadFilter<PickupSystem.Filter>, ISignalOnTriggerEnter2D, ISignalOnTriggerExit2D, ISignalOnComponentAdded<PickupItem>
   {
+    public unsafe void OnAdded(Frame f, EntityRef entity, PickupItem* component)
+    {
+      var baseConfig = f.FindAsset<PickupItemBase>(component->PickupItemBase);
+      component->PickupTime = baseConfig.PickupTime;
+    }
+
     public void OnTriggerEnter2D(Frame f, TriggerInfo2D info)
     {
-        if (!f.TryGet(info.Entity, out PlayerLink playerLink))
-          return;
-        if (!f.TryGet<PickupItem>(info.Other, out var pickupItemComponent))
-          return;
+      if (!f.TryGet(info.Entity, out PlayerLink _))
+        return;
+
+      if (!f.Unsafe.TryGetPointer(info.Other, out PickupItem* pickupItem))
+        return;
+
+      if (pickupItem->EntityPickingUp != EntityRef.None)
+        return;
+
+      pickupItem->EntityPickingUp = info.Entity;
     }
 
     public void OnTriggerExit2D(Frame f, ExitInfo2D info)
     {
-        if (!f.TryGet(info.Entity, out PlayerLink playerLink))
-          return;
-        if (!f.TryGet<PickupItem>(info.Other, out var pickupItemComponent))
-          return;
+      if (!f.TryGet(info.Entity, out PlayerLink _))
+        return;
+
+      if (!f.Unsafe.TryGetPointer(info.Other, out PickupItem* pickupItem))
+        return;
+
+      if (pickupItem->EntityPickingUp != info.Entity)
+        return;
+
+      pickupItem->EntityPickingUp = EntityRef.None;
+      pickupItem->CurrentPickupTime = 0;
     }
 
     public override void Update(Frame f, ref Filter filter)
     {
+      if (filter.PickupItem->EntityPickingUp == EntityRef.None)
+        return;
 
+      filter.PickupItem->CurrentPickupTime += f.DeltaTime;
+      Log.Info("Pickup Time: " + filter.PickupItem->CurrentPickupTime);
+      if (filter.PickupItem->CurrentPickupTime >= filter.PickupItem->PickupTime)
+      {
+        var baseConfig = f.FindAsset<PickupItemBase>(filter.PickupItem->PickupItemBase);
+        baseConfig.PickupItem(f, filter.Entity, filter.PickupItem->EntityPickingUp);
+      }
     }
 
     public struct Filter
     {
       public EntityRef Entity;
+      public PickupItem* PickupItem;
     }
   }
 }

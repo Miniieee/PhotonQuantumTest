@@ -1,5 +1,6 @@
 namespace Quantum {
-  using Photon.Deterministic;
+    using System;
+    using Photon.Deterministic;
   using UnityEngine.Scripting;
 
   [Preserve]
@@ -8,10 +9,54 @@ namespace Quantum {
 
     public override void Update(Frame f, ref Filter filter)
     {
-        filter.Transform->Position += filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime;
+        var nextPosition = filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime;;
+
+        if(CheckForCollision(f, filter, nextPosition, out var entityHit))
+        {
+            if(f.Unsafe.TryGetPointer<Damageable>(entityHit, out var damageable))
+            {
+                f.Signals.DamageableHit(entityHit, filter.Bullet->Owner, filter.Bullet->Damage, damageable);
+            }
+
+            f.Destroy(filter.Entity);
+            return;
+        }
+
+        CheckbulletForTimeExpiration(f, filter);
+
+        filter.Transform->Position += nextPosition;
     }
 
-    public void CreateBullet(Frame f, EntityRef owner, WeaponData weaponData)
+        private void CheckbulletForTimeExpiration(Frame f, Filter filter)
+        {
+            filter.Bullet->Time -= f.DeltaTime;
+            if (filter.Bullet->Time <= FP._0)
+            {
+                f.Destroy(filter.Entity);
+            }
+        }
+
+        private bool CheckForCollision(Frame f, Filter filter, FPVector2 nextPosition, out EntityRef entityHit)
+        {
+            entityHit = EntityRef.None;
+            var owner = filter.Bullet->Owner;
+            var bulletTransfrom = f.Get<Transform2D>(filter.Entity);
+            var collisions = f.Physics2D.LinecastAll(bulletTransfrom.Position, bulletTransfrom.Position + nextPosition, layerMask: int.MaxValue, QueryOptions.HitAll & ~QueryOptions.HitTriggers);
+
+            for (int i = 0; i < collisions.Count; i++)
+            {
+                var collision = collisions[i];
+                if (collision.Entity == filter.Entity || collision.Entity == owner)
+                    continue;
+                
+                entityHit = collision.Entity;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void CreateBullet(Frame f, EntityRef owner, WeaponData weaponData)
     {
         var bulletData = weaponData.BulletData;
         var bulletEntity = f.Create(bulletData.Bullet);

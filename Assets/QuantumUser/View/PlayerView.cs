@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Quantum;
+using TMPro;
 using UnityEngine;
 
 public unsafe class PlayerView : QuantumEntityViewComponent
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject overheadUi;
+    [SerializeField] private TMP_Text playerNameText;
 
     private bool _isLocalPlayer;
     private Renderer[] _renderers;
@@ -22,7 +24,10 @@ public unsafe class PlayerView : QuantumEntityViewComponent
 
     public override void OnActivate(Frame frame)
     {
-        _isLocalPlayer = _game.PlayerIsLocal(frame.Get<PlayerLink>(EntityRef).Player);
+        var playerLink = frame.Get<PlayerLink>(EntityRef);
+        _isLocalPlayer = _game.PlayerIsLocal(playerLink.Player);
+        var playerData = frame.GetPlayerData(playerLink.Player);
+        playerNameText.text = playerData.PlayerNickname;
         var layer = UnityEngine.LayerMask.NameToLayer(_isLocalPlayer ? "Player_Local" : "Player_Remote");
 
         foreach (var renderer in _renderers)
@@ -76,6 +81,9 @@ public unsafe class PlayerView : QuantumEntityViewComponent
 
     private void UpdateAnimator()
     {
+        if(!PredictedFrame.Exists(EntityRef))
+            return;
+        
         var input = PredictedFrame.GetPlayerInput(PredictedFrame.Get<PlayerLink>(EntityRef).Player);
         var kcc = PredictedFrame.Get<KCC>(EntityRef);
         var velocity = kcc.Velocity;

@@ -27,6 +27,12 @@ enum WeaponType
 
 signal CreateBullet(EntityRef owner, FiringWeapon weaponData);
 
+event OnAmmoChanged
+{
+    EntityRef Entity;
+    Byte NewAmmo;
+}
+
 event OnWeaponChanged
 {
     EntityRef Entity;

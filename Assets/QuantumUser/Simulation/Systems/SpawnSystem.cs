@@ -2,6 +2,7 @@ namespace Quantum {
     using System;
     using Photon.Deterministic;
     using Quantum.Collections;
+    using Quantum;
     using UnityEngine.Scripting;
 
     [Preserve]
@@ -11,19 +12,22 @@ namespace Quantum {
         {
           if(!firstTime)
               return;
-          
-          var playerEntityRef = CreatePlayer(f, player);
-          
-          PlacePlayerOnSpawnPosition(f, playerEntityRef);
+
+            var playerEntityRef = CreatePlayer(f, player);
+
+            PlacePlayerOnSpawnPosition(f, playerEntityRef);
+
+            var playerLink = f.Get<PlayerLink>(playerEntityRef);
+            f.Events.OnPlayerSpawned(playerEntityRef, playerLink);
         }
 
         private void PlacePlayerOnSpawnPosition(Frame f, EntityRef playerEntityRef)
         {
             var spawnPointManager = f.Unsafe.GetPointerSingleton<SpawnPointManager>();
             var availableSpawnPoint = f.ResolveList(spawnPointManager->AvailableSpawnPoints);
-            var usedSpawnPoints = f.ResolveList(spawnPointManager->UsedSpawnPoints); 
+            var usedSpawnPoints = f.ResolveList(spawnPointManager->UsedSpawnPoints);
 
-            if(availableSpawnPoint.Count == 0 && usedSpawnPoints.Count == 0)
+            if (availableSpawnPoint.Count == 0 && usedSpawnPoints.Count == 0)
             {
               foreach (var componentPair in f.GetComponentIterator<SpawnPoint>())
               {
@@ -52,7 +56,7 @@ namespace Quantum {
                 // availableSpawnPoint = usedSpawnPoints;
                 // usedSpawnPoints = f.ResolveList(spawnPointManager->UsedSpawnPoints);
             }
-        } 
+        }
 
         private static EntityRef CreatePlayer(Frame f, PlayerRef player)
         {

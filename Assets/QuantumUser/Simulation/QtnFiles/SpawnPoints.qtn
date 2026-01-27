@@ -7,7 +7,13 @@ singleton component SpawnPointManager
 {
     [AllocateOnComponentAdded]
     list<EntityRef> AvailableSpawnPoints;
-    
+
     [AllocateOnComponentAdded]
     list<EntityRef> UsedSpawnPoints;
+}
+
+event OnPlayerSpawned
+{
+    EntityRef Player;
+    PlayerLink PlayerLink;
 }

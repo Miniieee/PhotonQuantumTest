@@ -32,11 +32,14 @@ namespace Quantum {
             if(callback.Entity != EntityRef)
                 return;
             if(callback.WeaponType == _currentPlayerWeapon.weaponType)
-                return; 
-            
+                return;
+
             _currentPlayerWeapon.gameObject.SetActive(false);
+            _currentPlayerWeapon.Rig.weight = 0f;
+
             _currentPlayerWeapon = _playerWeapons[callback.WeaponType];
             _currentPlayerWeapon.gameObject.SetActive(true);
+            _currentPlayerWeapon.Rig.weight = 1f;
         }
 
         public override void OnDeactivate()

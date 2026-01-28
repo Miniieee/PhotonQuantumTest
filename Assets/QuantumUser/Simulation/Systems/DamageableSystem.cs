@@ -3,11 +3,11 @@ namespace Quantum {
     using UnityEngine.Scripting;
 
   [Preserve]
-  public unsafe class DamageableSystem : SystemSignalsOnly, ISignalOnComponentAdded<Damageable>, ISignalDamageableHit, ISignalDamageableHealthRestored
+  public unsafe class DamageableSystem : SystemMainThreadFilter<DamageableSystem.Filter>, ISignalOnComponentAdded<Damageable>, ISignalDamageableHit, ISignalDamageableHealthRestored
   {
     public unsafe void DamageableHealthRestored(Frame f, EntityRef entity, Damageable* damageable)
     {
-      var maxHealth = f.FindAsset<DamageableBase>(damageable->DamageableData).MaxHealth;
+      FP maxHealth = f.FindAsset<DamageableBase>(damageable->DamageableData).MaxHealth;
       damageable->Health = maxHealth;
       f.Events.OnDamageableHealthUpdate(entity, maxHealth, damageable->Health);
     }
@@ -24,7 +24,30 @@ namespace Quantum {
         component->Health = damageableData.MaxHealth;
     }
 
-    public struct Filter 
+    public override void Update(Frame f, ref Filter filter)
+    {
+      if (!f.TryGet<PlayerLink>(filter.Entity, out _))
+        return;
+
+      var shrinkingCircle = f.GetSingleton<ShrinkingCircle>();
+
+      if (CheckIfEntityIsOutsideCircle(f, filter, shrinkingCircle))
+      {
+        var damageableAsset = f.FindAsset<DamageableBase>(filter.Damageable->DamageableData);
+        var shrinkingCircleConfig = f.FindAsset<ShrinkingCircleConfig>(shrinkingCircle.ShrinkingCircleConfig);
+
+        damageableAsset.DamageableHit(f, filter.Entity, filter.Entity, shrinkingCircleConfig.DamageDealingPerSecond * f.DeltaTime, filter.Damageable);
+      }
+    }
+
+    public bool CheckIfEntityIsOutsideCircle(Frame f, Filter filter, ShrinkingCircle shrinkingCircle)
+    {
+      Transform2D transform = f.Get<Transform2D>(filter.Entity);
+
+      return FPVector2.Distance(transform.Position, shrinkingCircle.Position) >= shrinkingCircle.CurrentRadius / 2;
+    }
+
+    public struct Filter
     {
         public EntityRef Entity;
         public Damageable* Damageable;

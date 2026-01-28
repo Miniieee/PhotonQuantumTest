@@ -16,3 +16,151 @@ MonoBehaviour:
     Path: QuantumUser/Simulation/Data/Shrinking Circle Config
     Guid:
       Value: 445714970056718058
+  States:
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: INITIALSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 13107200
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: PRESHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 10485760
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: SHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 65536
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: COOLDWONSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: PRESHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 6553600
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: SHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 65536
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: COOLDWONSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: PRESHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 3932160
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 0
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  - TimeToNextState:
+      RawValue: 1310720
+    CircleStateUnion:
+      _field_used_: SHRINKSTATE
+      InitialState:
+        InitialRadius:
+          RawValue: 0
+      PreShrinkState:
+        TargetRadius:
+          RawValue: 0
+      ShrinkState:
+        ShrinkingTime:
+          RawValue: 65536
+      CooldwonState:
+        _empty_prototype_dummy_field_: 0
+  DamageDealingPerSecond:
+    RawValue: 1310720
+  MinimumBounds:
+    X:
+      RawValue: -1310720
+    Y:
+      RawValue: -1310720
+  MaximumBounds:
+    X:
+      RawValue: 1310720
+    Y:
+      RawValue: 1310720

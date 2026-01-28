@@ -649,6 +649,8 @@ MonoBehaviour:
     - rid: 793626979680124929
     - rid: 793626979680124930
     - rid: 793626979680124931
+  - Components:
+    - rid: 4384056088928976896
   SerializedTriangleDataUncompressedSize: 452
   references:
     version: 2
@@ -952,6 +954,16 @@ MonoBehaviour:
         PickupItemBase:
           Id:
             Value: 290449810126106616
+    - rid: 4384056088928976896
+      type: {class: GameManagerPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
+      data:
+        CurrentGameState:
+          Value: 0
+        TimeToWaitForPlayers:
+          RawValue: 0
+        GameManagerConfig:
+          Id:
+            Value: 427666056428722261
     - rid: 4558001622319366144
       type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:

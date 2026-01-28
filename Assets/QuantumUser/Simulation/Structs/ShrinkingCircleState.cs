@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Photon.Deterministic;
 using UnityEngine;
 
-namespace Quantum {
-public unsafe partial struct ShrinkingCircleState
+namespace Quantum
+{
+    public unsafe partial struct ShrinkingCircleState
     {
         public void EnterState(ShrinkingCircle* shrinkingCircle)
         {
@@ -29,7 +30,7 @@ public unsafe partial struct ShrinkingCircleState
 
         public void UpdateState(Frame f, ShrinkingCircle* shrinkingCircle)
         {
-            if(shrinkingCircle->CurrentTimeToNextState <= 0)
+            if (shrinkingCircle->CurrentTimeToNextState <= 0)
                 return;
 
             shrinkingCircle->CurrentTimeToNextState -= f.DeltaTime;
@@ -40,7 +41,6 @@ public unsafe partial struct ShrinkingCircleState
                     var shrinkState = CircleStateUnion.ShrinkState;
                     shrinkState->ShrinkingTime += f.DeltaTime / TimeToNextState;
                     shrinkingCircle->CurrentRadius = FPMath.Lerp(shrinkingCircle->InitialRadiusOfState, shrinkingCircle->TargetRadius, shrinkState->ShrinkingTime);
-                    Log.Info("Shrinking Circle Radius: " + shrinkingCircle->CurrentRadius);
                     break;
             }
         }

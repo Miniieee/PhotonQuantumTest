@@ -1,31 +1,33 @@
-namespace Quantum {
+namespace Quantum
+{
     using System;
     using Photon.Deterministic;
-  using UnityEngine.Scripting;
+    using UnityEngine.Scripting;
 
-  [Preserve]
-  public unsafe class BulletSystem : SystemMainThreadFilter<BulletSystem.Filter>, ISignalCreateBullet {
-        
-
-    public override void Update(Frame f, ref Filter filter)
+    [Preserve]
+    public unsafe class BulletSystem : SystemMainThreadFilter<BulletSystem.Filter>, ISignalCreateBullet
     {
-        var nextPosition = filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime;;
 
-        if(CheckForCollision(f, filter, nextPosition, out var entityHit))
+
+        public override void Update(Frame f, ref Filter filter)
         {
-            if(f.Unsafe.TryGetPointer<Damageable>(entityHit, out var damageable))
+            var nextPosition = filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime; ;
+
+            if (CheckForCollision(f, filter, nextPosition, out var entityHit))
             {
-                f.Signals.DamageableHit(entityHit, filter.Bullet->Owner, filter.Bullet->Damage, damageable);
+                if (f.Unsafe.TryGetPointer<Damageable>(entityHit, out var damageable))
+                {
+                    f.Signals.DamageableHit(entityHit, filter.Bullet->Owner, filter.Bullet->Damage, damageable);
+                }
+
+                f.Destroy(filter.Entity);
+                return;
             }
 
-            f.Destroy(filter.Entity);
-            return;
+            CheckbulletForTimeExpiration(f, filter);
+
+            filter.Transform->Position += nextPosition;
         }
-
-        CheckbulletForTimeExpiration(f, filter);
-
-        filter.Transform->Position += nextPosition;
-    }
 
         private void CheckbulletForTimeExpiration(Frame f, Filter filter)
         {
@@ -48,7 +50,7 @@ namespace Quantum {
                 var collision = collisions[i];
                 if (collision.Entity == filter.Entity || collision.Entity == owner)
                     continue;
-                
+
                 entityHit = collision.Entity;
                 return true;
             }
@@ -59,20 +61,7 @@ namespace Quantum {
         public void CreateBullet(Frame f, EntityRef owner, FiringWeapon weaponData)
         {
             var bulletData = weaponData.BulletData;
-            var bulletEntity = f.Create(bulletData.Bullet);
-            var bulletTransfrom = f.Unsafe.GetPointer<Transform2D>(bulletEntity);
-            var ownerTransform = f.Get<Transform2D>(owner);
-
-            bulletTransfrom->Position = ownerTransform.Position + weaponData.Offset.XZ.Rotate(ownerTransform.Rotation);
-            bulletTransfrom->Rotation = ownerTransform.Rotation;
-
-            var bullet = f.Unsafe.GetPointer<Bullet>(bulletEntity);
-            bullet->Speed = bulletData.Speed;
-            bullet->Damage = bulletData.Damage;
-            bullet->Owner = owner;
-            bullet->Time = bulletData.Duration;
-            bullet->HeightOffset = weaponData.Offset.Y;
-            bullet->Direction = ownerTransform.Up;
+            bulletData.CreateBullet(f, weaponData, owner);
         }
 
         public struct Filter
@@ -81,5 +70,5 @@ namespace Quantum {
             public Bullet* Bullet;
             public Transform2D* Transform;
         }
-  }
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletData
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Simulation/Data/BulletData
+    Path: QuantumUser/Simulation/Data/BulletData/BulletData
     Guid:
       Value: 376066765040040518
   Duration:

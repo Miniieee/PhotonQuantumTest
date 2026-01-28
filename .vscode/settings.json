@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "PhotonQuantumTest.sln"
+    "dotnet.defaultSolution": "PhotonQuantumTest.sln",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
 }

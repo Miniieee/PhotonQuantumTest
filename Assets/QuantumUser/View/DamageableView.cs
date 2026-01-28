@@ -1,6 +1,8 @@
-namespace Quantum {
+namespace Quantum
+{
     using System;
     using System.Collections;
+    using DG.Tweening;
     using Photon.Deterministic;
     using UnityEngine;
     using UnityEngine.UI;
@@ -8,6 +10,7 @@ namespace Quantum {
     public class DamageableView : QuantumEntityViewComponent
     {
         [SerializeField] private Image _healthBarImage;
+        private Tween _tween;
 
         public override void OnActivate(Frame frame)
         {
@@ -16,25 +19,14 @@ namespace Quantum {
 
         private void OnDamageableHit(EventOnDamageableHealthUpdate callback)
         {
-          if (callback.entityRef != EntityRef)
-              return;
+            if (callback.entityRef != EntityRef)
+                return;
 
-          StartCoroutine(UpdateHealthUI(callback.CurrentHealth, callback.MaxHealth));
-
-          var healthPercentage = (float)(callback.CurrentHealth / callback.MaxHealth);
-            _healthBarImage.fillAmount = healthPercentage;
+            _tween?.Kill();
+            _tween = _healthBarImage.DOFillAmount((callback.CurrentHealth / callback.MaxHealth).AsFloat, 1f);
         }
 
-        private IEnumerator UpdateHealthUI(FP currentHealth, FP maxHealth)
-        {
-            var healthPercentage = (float)(currentHealth / maxHealth);
 
-            while (!Mathf.Approximately(_healthBarImage.fillAmount, healthPercentage))
-            {
-                _healthBarImage.fillAmount = Mathf.Lerp(_healthBarImage.fillAmount, healthPercentage, 0.1f);
-                yield return null;
-            }
-        }
 
         public override void OnDeactivate()
         {

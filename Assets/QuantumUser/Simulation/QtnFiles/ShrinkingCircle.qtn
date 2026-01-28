@@ -42,3 +42,8 @@ struct ShrinkState
 struct CooldwonState
 {
 }
+
+synced event OnShrinkingCircleChanged
+{
+    
+}

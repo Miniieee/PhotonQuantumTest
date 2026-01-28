@@ -4,8 +4,8 @@ using Photon.Deterministic;
 using UnityEngine;
 using UnityEngine.Scripting;
 
-namespace Quantum {
-
+namespace Quantum
+{
     [Preserve]
     public unsafe class ShrinkingCircleSystem : SystemMainThread, ISignalOnComponentAdded<ShrinkingCircle>
     {
@@ -15,14 +15,15 @@ namespace Quantum {
             ShrinkingCircleConfig config = f.FindAsset(shrinkingCircle->ShrinkingCircleConfig);
             shrinkingCircle->CurrentState.UpdateState(f, shrinkingCircle);
 
-            if(shrinkingCircle->CurrentTimeToNextState<= 0)
+            if (shrinkingCircle->CurrentTimeToNextState <= 0)
             {
-                if(shrinkingCircle->CurrentStateIndex >= config.States.Length - 1)
+                if (shrinkingCircle->CurrentStateIndex >= config.States.Length - 1)
                     return;
 
-                shrinkingCircle->CurrentStateIndex ++;
+                shrinkingCircle->CurrentStateIndex++;
                 config.States[shrinkingCircle->CurrentStateIndex].Materialize(f, ref shrinkingCircle->CurrentState);
                 shrinkingCircle->CurrentState.EnterState(shrinkingCircle);
+                f.Events.OnShrinkingCircleChanged();
             }
         }
 

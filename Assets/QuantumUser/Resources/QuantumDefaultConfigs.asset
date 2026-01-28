@@ -315,6 +315,16 @@ MonoBehaviour:
   HeapPageShift: 15
   HeapPageCount: 256
   HeapExtraCount: 0
+  HealthPickupItem:
+    Id:
+      Value: 1316668818559674354
+  WeaponTypeAndEntityPrototypes:
+  - WeaponType: 0
+    EntityPrototype: {fileID: 3097001405596171208, guid: 99c5ef77548948041951870a899b383f,
+      type: 3}
+  - WeaponType: 1
+    EntityPrototype: {fileID: 3097001405596171208, guid: 65a8548947bfc174aacdcf85be4c8a77,
+      type: 3}
 --- !u!114 &4388046111790236721
 MonoBehaviour:
   m_ObjectHideFlags: 0

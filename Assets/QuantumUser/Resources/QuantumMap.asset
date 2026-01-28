@@ -515,9 +515,9 @@ MonoBehaviour:
       RawValue: 0
     Position:
       X:
-        RawValue: 0
+        RawValue: -405667
       Y:
-        RawValue: 0
+        RawValue: 517734
     Height:
       RawValue: 0
     VerticalOffset:
@@ -640,10 +640,10 @@ MonoBehaviour:
     - rid: 6331437579975524352
     - rid: 6331437579975524353
   - Components:
-    - rid: 4537540842650337280
-    - rid: 4537540842650337281
-    - rid: 4537540842650337282
-    - rid: 4537540842650337283
+    - rid: 4338399727579037696
+    - rid: 4338399727579037697
+    - rid: 4338399727579037698
+    - rid: 4338399727579037699
   SerializedTriangleDataUncompressedSize: 452
   references:
     version: 2
@@ -819,17 +819,17 @@ MonoBehaviour:
         PickupItemBase:
           Id:
             Value: 279429705727785723
-    - rid: 4537540842650337280
+    - rid: 4338399727579037696
       type: {class: Transform2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         Position:
           X:
-            RawValue: 0
+            RawValue: -405667
           Y:
-            RawValue: 0
+            RawValue: 517734
         Rotation:
           RawValue: 0
-    - rid: 4537540842650337281
+    - rid: 4338399727579037697
       type: {class: PhysicsCollider2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         ShapeConfig:
@@ -866,12 +866,12 @@ MonoBehaviour:
         PhysicsMaterial:
           Id:
             Value: 0
-    - rid: 4537540842650337282
+    - rid: 4338399727579037698
       type: {class: PhysicsCallbacks2DPrototype, ns: Quantum.Prototypes, asm: Quantum.Engine}
       data:
         CallbackFlags:
           Value: 0
-    - rid: 4537540842650337283
+    - rid: 4338399727579037699
       type: {class: PickupItemPrototype, ns: Quantum.Prototypes, asm: Quantum.Simulation}
       data:
         EntityPickingUp:

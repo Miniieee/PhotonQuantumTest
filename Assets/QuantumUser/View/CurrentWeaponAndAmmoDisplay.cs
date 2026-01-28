@@ -48,9 +48,9 @@ public class CurrentWeaponAndAmmoDisplay : MonoBehaviour
 
     private void OnWeaponChanged(EventOnWeaponChanged callback)
     {
-        var f = callback.Game.Frames.Verified;
+        var f = callback.Game.Frames.Predicted;
 
-        if(!callback.Game.PlayerIsLocal(f.Get<PlayerLink>(callback.Entity).Player))
+        if (!callback.Game.PlayerIsLocal(f.Get<PlayerLink>(callback.Entity).Player))
             return;
 
         FillImageAndText(f, callback.Entity);

@@ -16,7 +16,7 @@ namespace Quantum
             if (weaponData is not FiringWeapon firingWeapon)
                 return;
 
-            weapon->Ammo += firingWeapon.MaxAmmo;
+            weapon->Ammo = firingWeapon.MaxAmmo;
             f.Events.OnAmmoChanged(pickerEntity, weapon->Ammo);
         }
 

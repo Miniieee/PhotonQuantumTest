@@ -14,14 +14,15 @@ namespace Quantum {
 
     public unsafe void DamageableHit(Frame f, EntityRef victim, EntityRef hitter, FP damage, Damageable* damageable)
     {
-        var damageableBase = f.FindAsset(damageable->DamageableData);
-        damageableBase.DamageableHit(f, victim, hitter, damage, damageable);
+      var damageableBase = f.FindAsset(damageable->DamageableData);
+      damageableBase.DamageableHit(f, victim, hitter, damage, damageable);
     }
 
     public unsafe void OnAdded(Frame f, EntityRef entity, Damageable* component)
     {
-        var damageableData = f.FindAsset(component->DamageableData);
-        component->Health = damageableData.MaxHealth;
+      var damageableData = f.FindAsset(component->DamageableData);
+      var characterStats = f.Get<CharacterStats>(entity);
+      component->Health = damageableData.MaxHealth * f.FindAsset<CharacterStatsConfig>(characterStats.CharacterStatConfig).HealthMultiplyer;
     }
 
     public override void Update(Frame f, ref Filter filter)

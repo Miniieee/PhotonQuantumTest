@@ -17,3 +17,5 @@ MonoBehaviour:
   <CharacterName>k__BackingField: Yellow Character
   <EntityPrototype>k__BackingField: {fileID: 3097001405596171208, guid: c5a5a6adf904a024dbb5c9f7e231a61a,
     type: 3}
+  <CharacterStatsConfig>k__BackingField: {fileID: 11400000, guid: a9f49b87e3e44e740adcc3e634e3e80c,
+    type: 2}

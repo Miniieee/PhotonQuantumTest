@@ -19,7 +19,10 @@ namespace Quantum {
             if(filter.Weapon->Ammo <= 0)
                 return;
 
-            filter.Weapon->CooldownTime = Cooldown;
+            var characterStats = f.Get<CharacterStats>(filter.Entity);
+            var characterStatsConfig = f.FindAsset<CharacterStatsConfig>(characterStats.CharacterStatConfig);
+
+            filter.Weapon->CooldownTime = Cooldown * characterStatsConfig.FireRateMultiplyer;
             filter.Weapon->Ammo--;
             f.Signals.CreateBullet(filter.Entity, this);
 

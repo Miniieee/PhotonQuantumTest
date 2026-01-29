@@ -11,3 +11,5 @@ event OnGameOver
 {
     EntityRef Winner;
 }
+
+event OnGameStateChanged {}

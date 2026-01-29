@@ -11,7 +11,7 @@ namespace Quantum
 
         public override void Update(Frame f, ref Filter filter)
         {
-            var nextPosition = filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime; ;
+            var nextPosition = filter.Bullet->Direction * filter.Bullet->Speed * f.DeltaTime;
 
             if (CheckForCollision(f, filter, nextPosition, out var entityHit))
             {

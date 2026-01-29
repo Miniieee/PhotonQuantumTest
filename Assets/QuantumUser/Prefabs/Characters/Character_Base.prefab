@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 6576478569463270877}
   - component: {fileID: 7222942314289619556}
   - component: {fileID: 5943675779617953738}
+  - component: {fileID: 5403817945212646504}
   m_Layer: 6
   m_Name: Character_Base
   m_TagString: Untagged
@@ -520,7 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db9fa3dc14762134a9e92a6005a979ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarImage: {fileID: 1497564469917106863}
+  _healthBarImage: {fileID: 0}
 --- !u!114 &5943675779617953738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,6 +534,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6bea8754d12b284398f8cac6cac6c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5403817945212646504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326267824891306075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18cb519081f6e6b409c4fa61bd7709a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prototype:
+    CharacterStatConfig:
+      Id:
+        Value: 0
 --- !u!1 &1739315570316238824
 GameObject:
   m_ObjectHideFlags: 0

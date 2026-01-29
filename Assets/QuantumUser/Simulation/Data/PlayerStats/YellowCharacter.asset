@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eeb447d97dd0344196e4e53d39809e1, type: 3}
-  m_Name: Game Manager Config
+  m_Script: {fileID: 11500000, guid: f1309250c903f6440a96fddd031b67bf, type: 3}
+  m_Name: YellowCharacter
   m_EditorClassIdentifier: 
   Identifier:
-    Path: QuantumUser/Simulation/Data/Game Manager Config
+    Path: QuantumUser/Simulation/Data/PlayerStats/YellowCharacter
     Guid:
-      Value: 427666056428722261
-  TimeToWaitForPlayers:
-    RawValue: 1310720
+      Value: 392255322406760367
+  HealthMultiplyer:
+    RawValue: 65536
+  FireRateMultiplyer:
+    RawValue: 32768

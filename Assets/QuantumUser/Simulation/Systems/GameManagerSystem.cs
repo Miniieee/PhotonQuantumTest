@@ -52,6 +52,7 @@ namespace Quantum
       if (gameManager->TimeToWaitForPlayers <= FP._0)
       {
         gameManager->CurrentGameState = f.ComponentCount<PlayerLink>() > 1 ? GameState.Playing : GameState.GameOver;
+        f.Events.OnGameStateChanged();
 
         if (gameManager->CurrentGameState == GameState.GameOver)
         {

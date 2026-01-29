@@ -15,8 +15,8 @@ namespace Quantum
             if (damageable->Health <= FP._0)
             {
                 DropLoot(f, victim);
-                f.Signals.PlayerKilled();
                 f.Destroy(victim);
+                f.Signals.PlayerKilled();
                 return;
             }
 

@@ -3,7 +3,7 @@ namespace Quantum.Menu {
 #if QUANTUM_ENABLE_TEXTMESHPRO
   using Text = TMPro.TMP_Text;
   using InputField = TMPro.TMP_InputField;
-#else 
+#else
   using Text = UnityEngine.UI.Text;
   using InputField = UnityEngine.UI.InputField;
 #endif
@@ -78,7 +78,7 @@ namespace Quantum.Menu {
 
 #if UNITY_STANDALONE
       _quitButton.gameObject.SetActive(true);
-#else 
+#else
       _quitButton.gameObject.SetActive(false);
 #endif
 
@@ -188,7 +188,7 @@ namespace Quantum.Menu {
       await Controller.HandleConnectionResult(result, this.Controller);
     }
 
-    
+
 
     /// <summary>
     /// Is called when the <see cref="_partyButton"/> is pressed using SendMessage() from the UI object.
@@ -214,7 +214,9 @@ namespace Quantum.Menu {
     /// <summary>
     /// Is called when the <see cref="_characterButton"/> is pressed using SendMessage() from the UI object.
     /// </summary>
-    protected virtual void OnCharacterButtonPressed() {
+    protected virtual void OnCharacterButtonPressed()
+    {
+      Controller.Show<QuantumMenuUICharacterSelection>();
     }
 
     /// <summary>

@@ -4,7 +4,7 @@ namespace Quantum
   using UnityEngine.Scripting;
 
   [Preserve]
-  public unsafe class GameManagerSystem : SystemMainThread, ISignalOnComponentAdded<GameManager>, ISignalPlayerKilled
+  public unsafe class GameManagerSystem : SystemMainThread, ISignalOnComponentAdded<GameManager>, ISignalPlayerKilled, ISignalOnPlayerDisconnected
   {
     public unsafe void OnAdded(Frame f, EntityRef entity, GameManager* component)
     {
@@ -12,9 +12,34 @@ namespace Quantum
       component->TimeToWaitForPlayers = config.TimeToWaitForPlayers;
     }
 
+    public void OnPlayerDisconnected(Frame f, PlayerRef player)
+    {
+      foreach (var entityPair in f.GetComponentIterator<PlayerLink>())
+      {
+        if (entityPair.Component.Player == player)
+        {
+          f.Destroy(entityPair.Entity);
+          break;
+        }
+      }
+
+      EvaluateGameOverCondition(f);
+    }
+
     public void PlayerKilled(Frame f)
     {
+      var gameManager = f.Unsafe.GetPointerSingleton<GameManager>();
+      if (gameManager->CurrentGameState != GameState.Playing)
+        return;
 
+      if (f.ComponentCount<PlayerLink>() > 1)
+        return;
+
+      if (GetWinner(f, out var winner))
+      {
+        f.Events.OnGameOver(winner);
+        gameManager->CurrentGameState = GameState.GameOver;
+      }
     }
 
     public override void Update(Frame f)
@@ -30,27 +55,42 @@ namespace Quantum
 
         if (gameManager->CurrentGameState == GameState.GameOver)
         {
-          var winner = GetWinner(f);
-          if (winner == EntityRef.None)
+
+          if (GetWinner(f, out var entityRef))
+          {
+            f.Events.OnGameOver(entityRef);
+          }
+          else
           {
             Log.Info("No winner could be determined.");
-            return;
           }
-
-          f.Events.OnGameOver(winner);
         }
       }
     }
 
-    private EntityRef GetWinner(Frame f)
+    private bool GetWinner(Frame f, out EntityRef entityRef)
     {
-      EntityRef entityRef = EntityRef.None;
+      entityRef = EntityRef.None;
       foreach (var entityPair in f.GetComponentIterator<PlayerLink>())
       {
         entityRef = entityPair.Entity;
         break;
       }
-      return entityRef;
+      return entityRef != EntityRef.None;
+    }
+
+    private void EvaluateGameOverCondition(Frame f)
+    {
+      var gameManager = f.Unsafe.GetPointerSingleton<GameManager>();
+
+      if (f.ComponentCount<PlayerLink>() > 1)
+        return;
+
+      if (GetWinner(f, out var winner))
+      {
+        f.Events.OnGameOver(winner);
+        gameManager->CurrentGameState = GameState.GameOver;
+      }
     }
   }
 }
